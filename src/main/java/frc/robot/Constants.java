@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 
 /**
@@ -21,11 +23,6 @@ import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
  */
 public final class Constants {
   
-
-  public static final int LBMotor = 0;
-  public static final int RBMotor = 0;
-  public static final int LFMotor = 0;
-  public static final int RFMotor = 0;
   
   public final class GameConstants{
     public static final String SelectedPath = "ExamplePath";
@@ -43,14 +40,7 @@ public final class Constants {
   }
 
   public final class BotConstants {
-    public static Translation2d m_frontLeftLocation = new Translation2d(0.381, 0.381);
-    public static Translation2d m_frontRightLocation = new Translation2d(0.381, -0.381);
-    public static Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
-    public static Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
-
-    public static MecanumDriveKinematics kinematics = new MecanumDriveKinematics(
-        BotConstants.m_frontLeftLocation, BotConstants.m_frontRightLocation,
-        BotConstants.m_backLeftLocation, BotConstants.m_backRightLocation);
+    public static DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0);
     
     public static double wheelRadius = 0.6;
   }

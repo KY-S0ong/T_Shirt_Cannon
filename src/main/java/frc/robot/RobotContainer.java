@@ -18,29 +18,31 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-
 public class RobotContainer {
 
   private final XboxController xc = new XboxController(GameConstants.xc);
-  //*____________________Subsystems___________________________________________ 
-  //private final KYSDriveTrain driveTrain = new KYSDriveTrain(
-            //PathPlannerAuto.getStaringPoseFromAutoFile(GameConstants.SelectedPath));
-    
-    private final KYSTankDrive drive = new KYSTankDrive();
-  //*____________________Commands_____________________________________________
-  //private final zeroHeading zeroHeading = new zeroHeading(driveTrain);
-  private final tankDrive cmd = new tankDrive(drive, xc);
+  // *____________________Subsystems___________________________________________
+  // private final KYSDriveTrain driveTrain = new KYSDriveTrain(
+  // PathPlannerAuto.getStaringPoseFromAutoFile(GameConstants.SelectedPath));
 
+  private final KYSTankDrive drive = new KYSTankDrive();
+  // *____________________Commands_____________________________________________
+  // private final zeroHeading zeroHeading = new zeroHeading(driveTrain);
 
   public RobotContainer() {
-    drive.setDefaultCommand(cmd);
+    drive.setDefaultCommand(
+        new tankDrive(
+            drive,
+            () -> xc.getLeftY(),
+            () -> xc.getRightX()));
+
     configureBindings();
 
   }
 
-  //private void registerCommands(){}
+  // private void registerCommands(){}
   private void configureBindings() {
- 
+
   }
 
   public Command getAutonomousCommand() {
