@@ -4,37 +4,38 @@
 
 package frc.robot;
 
+import frc.robot.Constants.ButtonConstants;
 import frc.robot.Constants.GameConstants;
+import frc.robot.commands.emergancyStop;
+import frc.robot.commands.shoot;
 import frc.robot.commands.tankDrive;
+import frc.robot.subsystems.Cannon;
 import frc.robot.subsystems.KYSTankDrive;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+
 
 public class RobotContainer {
 
   private final XboxController xc = new XboxController(GameConstants.xc);
   // *____________________Subsystems___________________________________________
-  // private final KYSDriveTrain driveTrain = new KYSDriveTrain(
-  // PathPlannerAuto.getStaringPoseFromAutoFile(GameConstants.SelectedPath));
-
   private final KYSTankDrive drive = new KYSTankDrive();
+  private final Cannon cannon = new Cannon();
+
   // *____________________Commands_____________________________________________
   // private final zeroHeading zeroHeading = new zeroHeading(driveTrain);
+  private final emergancyStop stop = new emergancyStop(drive);
 
   public RobotContainer() {
     drive.setDefaultCommand(
         new tankDrive(
             drive,
             () -> xc.getLeftY(),
-            () -> xc.getRightX()));
+            () -> xc.getRightX(),
+            () -> xc.getBButtonPressed()));
 
     configureBindings();
 
@@ -42,11 +43,11 @@ public class RobotContainer {
 
   // private void registerCommands(){}
   private void configureBindings() {
-
+    new JoystickButton(xc, ButtonConstants.buttonA).whileTrue(new shoot(cannon));
+    //new JoystickButton(xc, ButtonConstants.buttonB).onTrue(stop);
   }
 
   public Command getAutonomousCommand() {
-    PathPlannerPath path = PathPlannerPath.fromPathFile(GameConstants.SelectedPath);
-    return AutoBuilder.followPath(path);
+   return null;
   }
 }

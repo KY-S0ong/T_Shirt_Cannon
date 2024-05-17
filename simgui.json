@@ -5,6 +5,26 @@
         "visible": true
       }
     },
+    "PowerDistributions": {
+      "0": {
+        "PowerDistribution[0]": {
+          "open": true
+        }
+      },
+      "window": {
+        "visible": true
+      }
+    },
+    "Solenoids": {
+      "0": {
+        "header": {
+          "open": true
+        }
+      },
+      "window": {
+        "visible": true
+      }
+    },
     "Timing": {
       "window": {
         "visible": false

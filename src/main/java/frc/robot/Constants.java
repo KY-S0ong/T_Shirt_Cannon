@@ -4,10 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
-import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
+
+
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -22,26 +20,31 @@ import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  
-  
-  public final class GameConstants{
+
+  public final class GameConstants {
     public static final String SelectedPath = "ExamplePath";
-    
+
     public static final double kDeadband = 0.15;
     public static final int xc = 0;
   }
 
+  public final class ButtonConstants {
+    public static final int buttonA = 1;
+    public static final int buttonB = 2;
+    public static final int buttonX = 3;
+    public static final int buttonY = 4;
+    public static final int buttonLB = 5;
+    public static final int buttonRB = 6;
+    public static final int buttonStart = 7;
+  }
+
   public final class LimitConstants {
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 12;
-    public static final double kTeleDriveMaxSpeedMetersPerSecond = 12;
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 10;
+    public static final double kTeleDriveMaxSpeedMetersPerSecond = 10;
     public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 5;
-    public static double kTeleDriveMaxAngularSpeedRadiansPerSecond = 3;
     public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 8.5;
   }
 
   public final class BotConstants {
-    public static DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(0);
-    
-    public static double wheelRadius = 0.6;
   }
 }

@@ -6,10 +6,9 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
-import java.util.function.Supplier;
+import javax.print.DocFlavor.STRING;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.GameConstants;
@@ -18,24 +17,23 @@ import frc.robot.subsystems.KYSTankDrive;
 
 public class tankDrive extends Command {
   private KYSTankDrive tank;
-  private XboxController xc;
   private SlewRateLimiter lYLimiter = new SlewRateLimiter(15);
   private SlewRateLimiter rXLimiter = new SlewRateLimiter(15);
   private Supplier<Double> xSpdFunction;
   private Supplier<Double> ySpdFunction;
+  Supplier<Boolean> saftey;
 
   double ly;
   double rx;
+  boolean safe;
+  String safeMode;
 
-  boolean driveModeInt;
-
-  public tankDrive(KYSTankDrive tank, Supplier<Double> ySpdFunction, Supplier<Double> xSpdFunction) {
+  public tankDrive(KYSTankDrive tank, Supplier<Double> ySpdFunction, Supplier<Double> xSpdFunction, Supplier<Boolean> saftey) {
     this.tank = tank;
 
     this.xSpdFunction = ySpdFunction;
     this.ySpdFunction = xSpdFunction;
-
-
+    this.saftey = saftey;
     addRequirements(tank);
 
   }
@@ -50,23 +48,33 @@ public class tankDrive extends Command {
   public void execute() {
     ly = ySpdFunction.get();
     rx = xSpdFunction.get();
-
-    ly = lYLimiter.calculate(ly) * LimitConstants.kTeleDriveMaxSpeedMetersPerSecond;
-    rx = rXLimiter.calculate(rx) * LimitConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    safe = saftey.get();
     
 
     ly = (ly > GameConstants.kDeadband) ? ly : 0;
     rx = (rx > GameConstants.kDeadband) ? rx : 0;
 
+    ly = lYLimiter.calculate(ly) * LimitConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    rx = rXLimiter.calculate(rx) * LimitConstants.kTeleDriveMaxSpeedMetersPerSecond;
+
 
     SmartDashboard.putNumber("xbox ly", ly);
     SmartDashboard.putNumber("xbox rx", rx);
+   
 
-
+    if (safe == false){
     tank.tankDrive(ly, rx);
-
-
-    SmartDashboard.getNumber("Throttle", ly);
+    tank.setSafteyOff();
+    String safeMode = "False";
+    SmartDashboard.putString("Robot Stopped", safeMode);
+    }
+    else {
+      tank.stop();
+      tank.setSafteyOn();
+      String safeMode = "True";
+      SmartDashboard.putString("Robot Stopped", safeMode);
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
