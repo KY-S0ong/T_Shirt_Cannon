@@ -45,10 +45,10 @@ public class KYSTankDrive extends SubsystemBase {
   }
 
   public void tankDrive(double ly, double rx) {
-    fleft.set(controller.calculate((ly + (2 * rx)) * Math.PI));
-    bleft.set(controller.calculate((ly + (2 * rx)) * Math.PI));
-    fright.set(controller.calculate((ly - (2 + rx)) * Math.PI));
-    bright.set(controller.calculate((ly - (2 + rx)) * Math.PI));
+    fleft.set(controller.calculate((ly + rx)) * Math.PI);
+    bleft.set(controller.calculate((ly + rx)) * Math.PI);
+    fright.set(controller.calculate((ly - rx)) * Math.PI);
+    bright.set(controller.calculate((ly - rx)) * Math.PI);
   }
 
   public void stop() {
