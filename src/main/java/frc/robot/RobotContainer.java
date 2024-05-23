@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.ButtonConstants;
 import frc.robot.Constants.GameConstants;
-import frc.robot.commands.emergancyStop;
 import frc.robot.commands.shoot;
 import frc.robot.commands.tankDrive;
 import frc.robot.subsystems.Cannon;
@@ -27,7 +26,7 @@ public class RobotContainer {
 
   // *____________________Commands_____________________________________________
   // private final zeroHeading zeroHeading = new zeroHeading(driveTrain);
-  private final emergancyStop stop = new emergancyStop(drive);
+  //private final emergancyStop stop = new emergancyStop(drive);
 
   public RobotContainer() {
     drive.setDefaultCommand(
